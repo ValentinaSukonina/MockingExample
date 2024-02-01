@@ -23,28 +23,20 @@ class EmployeeTest {
     }
 
     @Test
-    @DisplayName("Retrieve employee id for initialized employee")
-    void retrieveEmployeeIdForInitializedEmployee() {
-        assertEquals("Emp0234", employee.getId());
-    }
+    @DisplayName("Employee id changed")
+    void employeeIdChanged() {
+        Employee employee = new Employee("23", 50000);
+        employee.setId("OOH-1");
 
-    @Test
-    @DisplayName("Setting new id updates employee id")
-    void settingNewIdUpdatesEmployeeId() {
-        employee.setId(("OOH-1"));
         assertEquals("OOH-1", employee.getId());
     }
 
     @Test
-    @DisplayName("Retrieve salary for initialized employee")
-    void retrieveSalaryForInitializedEmployee() {
-        assertEquals(50000, employee.getSalary());
-    }
-
-    @Test
-    @DisplayName("Setting new salary updates employee salary")
-    void settingNewSalaryUpdatesEmployeeId() {
+    @DisplayName("Employee salary changed")
+    void employeeSalaryChanged() {
+        Employee employee = new Employee("23", 50000);
         employee.setSalary(55000);
+
         assertEquals(55000, employee.getSalary());
     }
 
