@@ -1,14 +1,21 @@
 package com.example;
 
+
 public class StringCalculatorKata {
-    private static int sum;
+
+
+    private StringCalculatorKata() {
+    }
 
     public static int add(String numbers){
+        int sum = 0;
 
         if (numbers == null || numbers.isEmpty()){
-            sum = 0;
-        } else {
-            String[] numberArray = numbers.split(",");
+            return sum;
+        } else if (
+                numbers.contains(",\n")) {
+            throw new IllegalArgumentException("Invalid input");
+        } else {String[] numberArray = numbers.split("[,\n]");
             for (String number : numberArray) {
                 sum += Integer.parseInt(number);
             }
@@ -16,3 +23,4 @@ public class StringCalculatorKata {
         return sum;
     }
 }
+
