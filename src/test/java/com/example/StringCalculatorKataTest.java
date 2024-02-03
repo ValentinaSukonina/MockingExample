@@ -3,10 +3,7 @@ package com.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorKataTest {
 
@@ -18,7 +15,20 @@ class StringCalculatorKataTest {
         assertThat(result).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("Given empty string return Zero")
+    void givenEmptyStringReturnZero() {
+        var result = StringCalculatorKata.add("");
 
+        assertThat(result).isZero();
     }
+
+
+
+}
+
+
+
+
 
 

@@ -5,12 +5,14 @@ public class StringCalculatorKata {
 
     public static int add(String numbers){
 
-        String[] numberArray = numbers.split(",");
-        for (String number : numberArray){
-            sum += Integer.parseInt(number);
+        if (numbers == null || numbers.isEmpty()){
+            sum = 0;
+        } else {
+            String[] numberArray = numbers.split(",");
+            for (String number : numberArray) {
+                sum += Integer.parseInt(number);
+            }
         }
         return sum;
     }
-
-
 }
