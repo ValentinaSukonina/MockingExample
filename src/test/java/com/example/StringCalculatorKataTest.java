@@ -41,16 +41,16 @@ class StringCalculatorKataTest {
         assertThat(result).isEqualTo(6);
     }
 
-   @Test
-   @DisplayName("Empty line after last number in String throws IllegalArgumentException")
-   void emptyLineAfterLastNumberInStringThrowIllegalArgumentException() {
-       String invalidInput = "1,\n";
+    @Test
+    @DisplayName("Empty line after last number in String throws IllegalArgumentException")
+    void emptyLineAfterLastNumberInStringThrowIllegalArgumentException() {
+        String invalidInput = "1,\n";
 
-       IllegalArgumentException exception;
-       exception = assertThrows(IllegalArgumentException.class, () -> StringCalculatorKata.add(invalidInput));
+        IllegalArgumentException exception;
+        exception = assertThrows(IllegalArgumentException.class, () -> StringCalculatorKata.add(invalidInput));
 
-       assertEquals("Invalid input", exception.getMessage());
-   }
+        assertEquals("Invalid input", exception.getMessage());
+    }
 
     @Test
     @DisplayName("Double slash change delimiter to Semicolon")
@@ -91,7 +91,6 @@ class StringCalculatorKataTest {
             "'//;\n1;2;1001', 3",
             "'//;\n1;2;1000', 1003"
     })
-
     void numbersBiggerThanThousandAreIgnoredInSumCalculation(String numbers, int expected) {
         //var result = dataString.add(numbers);
         var result = StringCalculatorKata.add(numbers);
@@ -99,10 +98,38 @@ class StringCalculatorKataTest {
     }
 
 
+    @DisplayName("Delimiters of different length allowed with Double Slash")
+    @ParameterizedTest
+    @CsvSource({
+            "'//[**]\n2**2**3', 7",
+            "'//[***]\n2***2***3', 7",
+            "'//[****]\n2****2****3', 7"
 
-    
-    
+    })
+    void delimitersOfDifferentLengthAllowedWithDoubleSlash(String numbers, int expected) {
+        var result = StringCalculatorKata.add(numbers);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Multiple delimeters are allowed")
+    void multipleDelimetersAreAllowed() {
+        var result = StringCalculatorKata.add("//[*][%]\n1*2%3");
+
+        assertThat(result).isEqualTo(6);
+    }
+
+
+    @Test
+    @DisplayName("Multiple delimeters with length longer then one char are allowed")
+    void multipleDelimetersWithLengthLongerThenOneCharAreAllowed() {
+        var result = StringCalculatorKata.add("//[***][%%]\n1***2%%3");
+
+        assertThat(result).isEqualTo(6);
+    }
 }
+
+
 
 
 
