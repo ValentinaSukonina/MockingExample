@@ -24,8 +24,9 @@ public class StringCalculatorKata {
                 int num = Integer.parseInt(number);
                 if (num < 0) {
                     negativeValues.add(num);
+                } else if (num <= 1000) {
+                    sum += num;
                 }
-                sum += num;
             }
         } else if (
                 numbers.contains(",\n")) {
@@ -34,9 +35,10 @@ public class StringCalculatorKata {
             for (String number : numberArray) {
                 int num = Integer.parseInt(number);
                 if (num < 0) {
-                    negativeValues.add(num);
+                    negativeValues.add(num);                    
+                } else if (num <= 1000) {
+                    sum += num;
                 }
-                sum += num;
             }
         }
         if (!negativeValues.isEmpty()){

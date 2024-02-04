@@ -1,16 +1,25 @@
 package com.example;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorKataTest {
+/*    StringCalculatorKata dataString;
+
+    @BeforeEach
+    void init() {
+        dataString = new StringCalculatorKata();
+    }*/
 
     @Test
     @DisplayName("Given string containing two numbers return their sum")
-    void givenStringContainingTwoNumbersReturnTheirSum() {
+    void givenStringContainingTwoNumbersReturnTheirSum1() {
         var result = StringCalculatorKata.add("1,2");
 
         assertThat(result).isEqualTo(3);
@@ -71,6 +80,26 @@ class StringCalculatorKataTest {
 
         assertEquals("Negatives not allowed: [-2, -4]", exception.getMessage());
     }
+
+    @DisplayName("Numbers bigger than Thousand are ignored in sum calculation")
+    @ParameterizedTest
+    @CsvSource({
+            "'1,1001,3', 4",
+            "'1,1000,3', 1004",
+            "'1\n2,1001,3', 6",
+            "'1\n2,1000,3', 1006",
+            "'//;\n1;2;1001', 3",
+            "'//;\n1;2;1000', 1003"
+    })
+
+    void numbersBiggerThanThousandAreIgnoredInSumCalculation(String numbers, int expected) {
+        //var result = dataString.add(numbers);
+        var result = StringCalculatorKata.add(numbers);
+        assertEquals(expected, result);
+    }
+
+
+
     
     
 }
