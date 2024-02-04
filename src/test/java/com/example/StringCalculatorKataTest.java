@@ -42,7 +42,18 @@ class StringCalculatorKataTest {
 
        assertEquals("Invalid input", exception.getMessage());
    }
+
+
+    @Test
+    @DisplayName("Double slash change delimiter to Semicolon")
+    void doubleSlashChangeDelimiterToSemicolon() {
+        var result = StringCalculatorKata.add("//;\n1;2");
+        assertThat(result).isEqualTo(3);
+    }
+
+    
 }
+
 
 
 
