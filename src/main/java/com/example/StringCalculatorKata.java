@@ -1,14 +1,17 @@
 package com.example;
 
 
-public class StringCalculatorKata {
+import java.util.ArrayList;
+import java.util.List;
 
+public class StringCalculatorKata {
 
     private StringCalculatorKata() {
     }
 
     public static int add(String numbers){
         int sum = 0;
+        List<Integer> negativeValues = new ArrayList<>();
 
         if (numbers == null || numbers.isEmpty()){
             return sum;
@@ -18,16 +21,28 @@ public class StringCalculatorKata {
             String[] numberArray = parts[1].split(";");
 
             for (String number : numberArray) {
-                sum += Integer.parseInt(number);
+                int num = Integer.parseInt(number);
+                if (num < 0) {
+                    negativeValues.add(num);
+                }
+                sum += num;
             }
         } else if (
                 numbers.contains(",\n")) {
             throw new IllegalArgumentException("Invalid input");
         } else {String[] numberArray = numbers.split("[,\n]");
             for (String number : numberArray) {
-                sum += Integer.parseInt(number);
+                int num = Integer.parseInt(number);
+                if (num < 0) {
+                    negativeValues.add(num);
+                }
+                sum += num;
             }
         }
+        if (!negativeValues.isEmpty()){
+            throw new IllegalArgumentException("Negatives not allowed: " + negativeValues);
+        }
+
         return sum;
     }
 }

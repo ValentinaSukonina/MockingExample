@@ -43,7 +43,6 @@ class StringCalculatorKataTest {
        assertEquals("Invalid input", exception.getMessage());
    }
 
-
     @Test
     @DisplayName("Double slash change delimiter to Semicolon")
     void doubleSlashChangeDelimiterToSemicolon() {
@@ -51,6 +50,28 @@ class StringCalculatorKataTest {
         assertThat(result).isEqualTo(3);
     }
 
+    @Test
+    @DisplayName("Negative numbers in comma separated array throw an exception")
+    void negativeNumbersInCommaSeparatedArrayThrowAnException() {
+        String invalidInput = "-1,2,3,-4";
+
+        IllegalArgumentException exception;
+        exception = assertThrows(IllegalArgumentException.class, () -> StringCalculatorKata.add(invalidInput));
+
+        assertEquals("Negatives not allowed: [-1, -4]", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Negative numbers in newLine separated array throw an Exception")
+    void negativeNumbersInNewLineSeparatedArrayThrowAnException() {
+        String invalidInput = "1\n-2,3,-4";
+
+        IllegalArgumentException exception;
+        exception = assertThrows(IllegalArgumentException.class, () -> StringCalculatorKata.add(invalidInput));
+
+        assertEquals("Negatives not allowed: [-2, -4]", exception.getMessage());
+    }
+    
     
 }
 
