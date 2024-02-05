@@ -1,10 +1,6 @@
 package com.example;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class StringCalculatorKata {
 
@@ -19,31 +15,28 @@ public class StringCalculatorKata {
             return sum;
         } else if (numbers.startsWith("//")) {
             String[] parts = numbers.split("\n", 2);
-
-            // Replace all non-numeric characters in parts[1] with commas
-            String cleanedNumbers = parts[1].replaceAll("[^0-9]+", ",");
-
-            // Split cleanedNumbers using comma as a separator
-            String[] numberArray = cleanedNumbers.split(",");
-
-            // Sum the numbers
-            sum = getSum(numberArray, negativeValues, sum);
-
+            String cleanedNumbers = parts[1].replaceAll("\\D+", ",");
+            String[] onlyNumbersArrays = cleanedNumbers.split(",");
+            sum = getNumbersSum(onlyNumbersArrays, negativeValues, sum);
 
         } else if (numbers.contains(",\n")) {
             throw new IllegalArgumentException("Invalid input");
         } else {
             String[] numberArray = numbers.split("[,\n]");
-            sum = getSum(numberArray, negativeValues, sum);
+            sum = getNumbersSum(numberArray, negativeValues, sum);
         }
-        if (!negativeValues.isEmpty()) {
-            throw new IllegalArgumentException("Negatives not allowed: " + negativeValues);
-        }
+        handleNegativeValues(negativeValues);
 
         return sum;
     }
 
-    private static int getSum(String[] numberArray, List<Integer> negativeValues, int sum) {
+    private static void handleNegativeValues(List<Integer> negativeValues) {
+        if (!negativeValues.isEmpty()) {
+            throw new IllegalArgumentException("Negatives not allowed: " + negativeValues);
+        }
+    }
+
+    private static int getNumbersSum(String[] numberArray, List<Integer> negativeValues, int sum) {
         for (String number : numberArray) {
             int num = Integer.parseInt(number);
             if (num < 0) {

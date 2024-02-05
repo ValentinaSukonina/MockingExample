@@ -1,6 +1,5 @@
 package com.example;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -82,7 +81,11 @@ class StringCalculatorKataTest {
             "'1\n2,1001,3', 6",
             "'1\n2,1000,3', 1006",
             "'//;\n1;2;1001', 3",
-            "'//;\n1;2;1000', 1003"
+            "'//;\n1;2;1000', 1003",
+            "'//[**]\n2**2**1001', 4",
+            "'//[**]\n2**2**1000', 1004",
+            "'//[*][%]\n1*2%1001', 3",
+            "'//[*][%]\n1*2%1000', 1003"
     })
     void numbersBiggerThanThousandAreIgnoredInSumCalculation(String numbers, int expected) {
         //var result = dataString.add(numbers);
@@ -100,23 +103,35 @@ class StringCalculatorKataTest {
     })
     void delimitersOfDifferentLengthAllowedWithDoubleSlash(String numbers, int expected) {
         var result = StringCalculatorKata.add(numbers);
+
         assertEquals(expected, result);
     }
 
-    @Test
-    @DisplayName("Multiple delimeters are allowed")
-    void multipleDelimetersAreAllowed() {
-        var result = StringCalculatorKata.add("//[*][%]\n1*2%3");
+    @DisplayName("Multiple delimiters are allowed")
+    @ParameterizedTest
+    @CsvSource({
+            "'//[*][%]\n1*2%3', 6",
+            "'//[ * ][ % ]\n1 * 2 % 3', 6",
 
-        assertThat(result).isEqualTo(6);
+    })
+    void multipleDelimitersAreAllowed(String numbers, int expected) {
+        var result = StringCalculatorKata.add(numbers);
+
+        assertEquals(expected, result);
     }
 
-    @Test
     @DisplayName("Multiple delimeters with length longer then one char are allowed")
-    void multipleDelimetersWithLengthLongerThenOneCharAreAllowed() {
-        var result = StringCalculatorKata.add("//[***][%%]\n1***2%%3");
+    @ParameterizedTest
+    @CsvSource({
+            "'//[***][%%]\n1***1%%1', 3",
+            "'//[ ? ][%%]\n1 ? 1%%1', 3",
+            "'//[***][^^]\n1***1^^1', 3"
+    })
 
-        assertThat(result).isEqualTo(6);
+    void multipleDelimetersWithLengthLongerThenOneCharAreAllowed(String numbers, int expected) {
+        var result = StringCalculatorKata.add(numbers);
+
+        assertEquals(expected, result);
     }
 }
 
