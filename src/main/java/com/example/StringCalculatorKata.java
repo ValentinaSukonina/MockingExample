@@ -19,10 +19,17 @@ public class StringCalculatorKata {
             return sum;
         } else if (numbers.startsWith("//")) {
             String[] parts = numbers.split("\n", 2);
-            Pattern delimiterPattern = extractDelimiterPattern(parts[0]);
 
-            String[] numberArray = parts[1].split(delimiterPattern.pattern());
+            // Replace all non-numeric characters in parts[1] with commas
+            String cleanedNumbers = parts[1].replaceAll("[^0-9]+", ",");
+
+            // Split cleanedNumbers using comma as a separator
+            String[] numberArray = cleanedNumbers.split(",");
+
+            // Sum the numbers
             sum = getSum(numberArray, negativeValues, sum);
+
+
         } else if (numbers.contains(",\n")) {
             throw new IllegalArgumentException("Invalid input");
         } else {
@@ -48,21 +55,5 @@ public class StringCalculatorKata {
         return sum;
     }
 
-    private static Pattern extractDelimiterPattern(String delimiterLine) {
-        Matcher matcher = Pattern.compile("//(\\[.*?\\]|[^\\[\\]\n]+)\\n?").matcher(delimiterLine);
-        if (matcher.find()) {
-            String extractedDelimiter = matcher.group(1);
-
-            if (extractedDelimiter.startsWith("[") && extractedDelimiter.endsWith("]")) {
-                // Handle pattern "//[delimiter]\n[numbers...]"
-                return Pattern.compile(Pattern.quote(extractedDelimiter.substring(1, extractedDelimiter.length() - 1)));
-            } else {
-                // Handle pattern "//delimiter\n"
-                return Pattern.compile(Pattern.quote(extractedDelimiter.trim()));
-            }
-        } else {
-            throw new IllegalArgumentException("Invalid delimiter format");
-        }
-    }
 }
 

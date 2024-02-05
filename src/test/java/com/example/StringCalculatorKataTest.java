@@ -10,13 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorKataTest {
-/*    StringCalculatorKata dataString;
-
-    @BeforeEach
-    void init() {
-        dataString = new StringCalculatorKata();
-    }*/
-
     @Test
     @DisplayName("Given string containing two numbers return their sum")
     void givenStringContainingTwoNumbersReturnTheirSum1() {
@@ -97,7 +90,6 @@ class StringCalculatorKataTest {
         assertEquals(expected, result);
     }
 
-
     @DisplayName("Delimiters of different length allowed with Double Slash")
     @ParameterizedTest
     @CsvSource({
@@ -118,7 +110,6 @@ class StringCalculatorKataTest {
 
         assertThat(result).isEqualTo(6);
     }
-
 
     @Test
     @DisplayName("Multiple delimeters with length longer then one char are allowed")
